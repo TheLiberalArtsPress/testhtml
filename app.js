@@ -87,7 +87,6 @@ const fallbackBooks = [
 ];
 
 function App() {
-    // 🎯 讀取從外部 window 載入的 defaultUI
     const [ui, setUi] = useState(window.defaultUI || {});
 
     const [settings, setSettings] = useState({
@@ -320,7 +319,7 @@ function App() {
 
     const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-    // 🛠️ 終極修復：對齊後端 processAction 期望的標準英文欄位名稱
+    // 🛠️ 專注修復：精準封裝符合後端 CREATE_ORDER 的乾淨欄位
     const handleCheckout = async (e) => {
         e.preventDefault();
         if (isCheckingOut) return;
@@ -348,15 +347,15 @@ function App() {
 
         const newOrder = {
             id: orderId,
-            customer: info.name,       // 對齊 payload.customer
-            phone: info.phone,         // 對齊 payload.phone
-            address: info.address,     // 對齊 payload.address
-            email: info.email,         // 對齊 payload.email
-            payment: selectedPayment,  // 對齊 payload.payment
-            items: itemsStr,           // 對齊 payload.items
-            total: cartTotal,          // 對齊 payload.total
-            status: '處理中',          // 對齊 payload.status
-            memo: info.memo || ''      // 對齊 payload.memo
+            customer: info.name,       
+            phone: info.phone,         
+            address: info.address,     
+            email: info.email,         
+            payment: selectedPayment,  
+            items: itemsStr,           
+            total: cartTotal,          
+            status: '處理中',          
+            memo: info.memo || ''      
         };
         
         const response = await syncWithGAS('CREATE_ORDER', newOrder);
@@ -371,12 +370,12 @@ function App() {
             setIsCartOpen(false);
             showMsg(`訂單已成功送出！您的單號為：${orderId}`);
         } else {
-            showMsg(`訂單建立失敗：${response?.msg || '請檢查後台權限'}`);
+            showMsg(`訂單建立失敗：${response?.msg || '請確認後台部署版本'}`);
         }
         setIsCheckingOut(false);
     };
 
-    // 🛠️ 終極修復：格式完全吻合後端正則拆分公式
+    // 🛠️ 專注修復：配合後端 NEW_CS_MSG 進行最安全乾淨的傳送
     const handleCSSubmit = async (e) => {
         e.preventDefault();
         if (isSubmittingCS) return;
@@ -405,7 +404,7 @@ function App() {
             showMsg("感謝您的反映，客服專員將盡快回覆！");
             e.target.reset();
         } else {
-            showMsg(`留言失敗：${response?.msg || '請檢查後台權限'}`);
+            showMsg(`留言失敗：${response?.msg || '請確認後台部署版本'}`);
         }
         setIsSubmittingCS(false);
     };
@@ -562,7 +561,7 @@ function App() {
                             <button type="button" onClick={()=>scrollSlider('left')} className="absolute -left-3 md:-left-5 top-[45%] -translate-y-1/2 z-10 bg-white border border-[var(--border-color)] hover:bg-[var(--bg-light)] p-2 md:p-3 rounded-full text-[var(--text-dark)] shadow-[0_4px_10px_rgba(0,0,0,0.1)] transition-all flex items-center justify-center opacity-90 hover:opacity-100">
                                 <ChevronLeft size={24}/>
                             </button>
-                            <button type="button" onClick={()=>scrollSlider('right')} className="absolute -right-3 md:-right-5 top-[45%] -translate-y-1/2 z-10 bg-white border border-[var(--border-color)] hover:bg-[var(--bg-light)] p-2 md:p-3 rounded-full text-[var(--text-dark)] shadow-[0_4px_10px_rgba(0,0,0,0.1)] transition-all flex items-center justify-center opacity-90 hover:opacity-100">
+                            <button type="button" onClick={()=>scrollSlider('right')} className="absolute -right-3 md:-left-5 top-[45%] -translate-y-1/2 z-10 bg-white border border-[var(--border-color)] hover:bg-[var(--bg-light)] p-2 md:p-3 rounded-full text-[var(--text-dark)] shadow-[0_4px_10px_rgba(0,0,0,0.1)] transition-all flex items-center justify-center opacity-90 hover:opacity-100">
                                 <ChevronRight size={24}/>
                             </button>
                             <div className="flex overflow-x-auto gap-6 snap-x snap-mandatory hide-scrollbar pb-6 px-2 pt-2">
