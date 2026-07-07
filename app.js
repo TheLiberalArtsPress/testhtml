@@ -40,7 +40,8 @@ const ModernLogo = ({ className = "w-8 h-8", color1 = "var(--dark-color)", color
     </svg>
 );
 
-const _0x4a21 = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4TTczVlJ3TmllbG5Ld2hHZmItY3cwV2tDY1N4bU9QbXI0cFg3YU1sLXgtX3lzaVFmZWhHMVBIT0pKdFZfeTdRVlcvZXhlYw==";
+const _0x4a21 = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3d1BDWlB3MUQwNmxmemwtbzRLelJRYm1Rb3oyUDlZb1N3NkJ4MVRzNmFiOU5WeHRnanFEalB2Sko1RjM1NXpfM3FSdy9leGVj";
+
 
 const GAS_URL = atob(_0x4a21); 
 const SECRET_KEY = "cd6ca599bdbb083d34a3012b84071c848cc4bca0698a53c3cc65a2c296dd3ddf";
