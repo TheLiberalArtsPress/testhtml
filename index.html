@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文史哲出版社官方網站｜1971年創立・文學歷史哲學專業學術出版</title>
+    <link rel="icon" type="image/png" href="https://theliberalartspress.github.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://theliberalartspress.github.io/favicon.png">
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="文史哲出版社有限公司創立於1971年，為台灣歷史悠久的人文學術出版社，專注於文學、歷史、哲學、藝術、語言學、宗教及人文社會科學出版，累積出版超過2500種學術專書與研究論著。">
+    <meta property="og:title" content="文史哲出版社｜台灣人文學術出版社">
+    <meta property="og:description" content="創立於1971年，專注文學、歷史、哲學、藝術、語言學及人文社會科學出版，累積出版超過2500種學術著作。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://theliberalartspress.github.io/">
+    <meta property="og:image" content="https://theliberalartspress.github.io/og-image.jpg">
+    <meta property="og:site_name" content="文史哲出版社">
+    <meta property="og:locale" content="zh_TW">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://theliberalartspress.github.io/">
+
+    <!-- Schema.org 結構化資料 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://theliberalartspress.github.io/#website",
+          "url": "https://theliberalartspress.github.io/",
+          "name": "文史哲出版社官方網站",
+          "publisher": { "@id": "https://theliberalartspress.github.io/#organization" }
+        },
+        {
+          "@type": ["Organization", "Publisher"],
+          "@id": "https://theliberalartspress.github.io/#organization",
+          "name": "文史哲出版社有限公司",
+          "url": "https://theliberalartspress.github.io/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://theliberalartspress.github.io/logo.png"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Tailwind 核心配置 -->
+    <script>
+        window.tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['"Noto Sans TC"', 'sans-serif'],
+                            serif: ['"Noto Serif TC"', 'serif'],
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 核心 React 與第三方套件外部 CDN 載入 -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script>window.react = window.React;</script>
+    <script src="https://unpkg.com/@babel/standalone@7.22.20/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@0.284.0/dist/umd/lucide-react.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --primary-color: #8C5A2B;
+            --dark-color: #2C241B;
+            --bg-color: #FDFBF7;
+            --bg-light: #F9F6F0;
+            --text-dark: #4A3728;
+            --border-color: #E6D5C3;
+            --accent-color: #C4B29E;
+            --footer-bg: #1A1412;
+            --body-font: 'Noto Sans TC', sans-serif;
+            --title-font: 'Noto Serif TC', serif;
+        }
+
+        body, input, textarea, button, select { font-family: var(--body-font), 'Noto Sans TC', sans-serif !important; }
+        .font-serif, h1, h2, h3, .font-serif * { font-family: var(--title-font), 'Noto Serif TC', serif !important; }
+        .font-sans, p, span, .font-sans * { font-family: var(--body-font), 'Noto Sans TC', sans-serif !important; }
+
+        .animate-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .drop-cap::first-letter {
+            float: left; font-size: 3.5rem; line-height: 3rem; padding-top: 0.2rem; padding-right: 0.5rem; color: var(--dark-color); font-weight: 900;
+        }
+
+        .custom-scrollbar { scrollbar-width: auto !important; scrollbar-color: #8C5A2B rgba(0, 0, 0, 0.05) !important; }
+        .custom-scrollbar::-webkit-scrollbar { width: 10px !important; height: 10px !important; display: block !important; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05) !important; border-radius: 10px !important; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #8C5A2B !important; border-radius: 10px !important; border: 2px solid #FDFBF7 !important; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #2C241B !important; }
+    </style>
+</head>
+<body class="bg-[var(--bg-light)]">
+    <!-- React 渲染節點 -->
+    <div id="root"></div>
+
+    <!-- Google 搜尋引擎爬蟲備用無障礙文本（純 HTML 供 SEO 爬行使用，不影響 React 渲染） -->
+    <article style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+        <h1>文史哲出版社有限公司（The Liberal Arts Press）</h1>
+        <p>文史哲出版社創立於1971年8月1日，為台灣歷史悠久的人文學術出版社，長期致力於文學、歷史、哲學、藝術、宗教、語言學及人文社會科學領域出版。詳細出版社沿革介紹，亦可參閱文史哲出版社維基百科條目。</p>
+        <h2>聯絡資訊</h2>
+        <p>地址：10074 台北市中正區羅斯福路一段72巷4號</p>
+        <p>電話：02-2351-1028</p>
+        <p>電子信箱：lapentw@gmail.com</p>
+    </article>
+
+    <!-- 🛠️ 關鍵優化：先載入語系字典檔，再載入官網主程式 App -->
+    <script src="ui-config.js"></script>
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
