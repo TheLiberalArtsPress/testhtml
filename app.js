@@ -40,12 +40,10 @@ const ModernLogo = ({ className = "w-8 h-8", color1 = "var(--dark-color)", color
     </svg>
 );
 
-
 const _0x4a21 = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4TTczVlJ3TmllbG5Ld2hHZmItY3cwV2tDY1N4bU9QbXI0cFg3YU1sLXgtX3lzaVFmZWhHMVBIT0pKdFZfeTdRVlcvZXhlYw==";
 
 const GAS_URL = atob(_0x4a21); 
 const SECRET_KEY = "cd6ca599bdbb083d34a3012b84071c848cc4bca0698a53c3cc65a2c296dd3ddf";
-
 
 async function generateSignature(message, secret) {
     const encoder = new TextEncoder();
@@ -322,6 +320,7 @@ function App() {
 
     const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
+    // 🛠️ 終極修復：對齊後端 processAction 期望的標準英文欄位名稱
     const handleCheckout = async (e) => {
         e.preventDefault();
         if (isCheckingOut) return;
@@ -336,7 +335,7 @@ function App() {
         const pad = (n) => n.toString().padStart(2, '0');
         const formattedDate = `${now.getFullYear()}/${pad(now.getMonth() + 1)}/${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
         
-        const itemsStr = cart.map(i => `${i.title} (數量: ${i.qty})`).join('\n');
+        const itemsStr = cart.map(i => `${i.title} x${i.qty}`).join(', ');
         
         let orderId = `ORD-${Math.floor(Math.random() * 10000)}`;
         try {
@@ -348,25 +347,36 @@ function App() {
         } catch(error) {}
 
         const newOrder = {
-            id: orderId, customer: info.name, phone: info.phone, email: info.email, address: info.address, payment: info.payment,
-            items: itemsStr, total: cartTotal, status: '處理中', date: formattedDate, memo: info.memo || '',
-            '訂單編號': orderId, '客戶姓名': info.name, '電話': info.phone, '電子信箱': info.email, 'Email': info.email,
-            '地址': info.address, '付款方式': info.payment, '購買項目': itemsStr, '總金額': cartTotal, '狀態': '處理中', '日期': formattedDate
+            id: orderId,
+            customer: info.name,       // 對齊 payload.customer
+            phone: info.phone,         // 對齊 payload.phone
+            address: info.address,     // 對齊 payload.address
+            email: info.email,         // 對齊 payload.email
+            payment: selectedPayment,  // 對齊 payload.payment
+            items: itemsStr,           // 對齊 payload.items
+            total: cartTotal,          // 對齊 payload.total
+            status: '處理中',          // 對齊 payload.status
+            memo: info.memo || ''      // 對齊 payload.memo
         };
         
-        await syncWithGAS('CREATE_ORDER', newOrder);
+        const response = await syncWithGAS('CREATE_ORDER', newOrder);
         
-        setBooks(books.map(b => {
-            const ci = cart.find(c => c.id === b.id);
-            return ci ? { ...b, stock: b.stock - ci.qty } : b;
-        }));
-        
-        setCart([]); 
+        if (response && response.status !== 'error') {
+            setBooks(books.map(b => {
+                const ci = cart.find(c => c.id === b.id);
+                return ci ? { ...b, stock: b.stock - ci.qty } : b;
+            }));
+            
+            setCart([]); 
+            setIsCartOpen(false);
+            showMsg(`訂單已成功送出！您的單號為：${orderId}`);
+        } else {
+            showMsg(`訂單建立失敗：${response?.msg || '請檢查後台權限'}`);
+        }
         setIsCheckingOut(false);
-        setIsCartOpen(false);
-        showMsg(`訂單已成功送出！您的單號為：${orderId}`);
     };
 
+    // 🛠️ 終極修復：格式完全吻合後端正則拆分公式
     const handleCSSubmit = async (e) => {
         e.preventDefault();
         if (isSubmittingCS) return;
@@ -380,12 +390,24 @@ function App() {
         const msg = e.target.message.value;
         
         const combinedQuery = `【聯絡電話】${phone}\n【Email信箱】${email}\n─────────────────\n【反映內容】\n${msg}`;
-        const newLog = { id: Date.now(), platform: 'Web官網', user: name, query: combinedQuery };
-        await syncWithGAS('NEW_CS_MSG', newLog);
         
+        const newLog = { 
+            id: Date.now(), 
+            platform: 'Web官網', 
+            user: name, 
+            query: combinedQuery 
+        };
+        
+        const response = await syncWithGAS('NEW_CS_MSG', newLog);
+        
+        if (response && response.status !== 'error') {
+            setIsContactOpen(false);
+            showMsg("感謝您的反映，客服專員將盡快回覆！");
+            e.target.reset();
+        } else {
+            showMsg(`留言失敗：${response?.msg || '請檢查後台權限'}`);
+        }
         setIsSubmittingCS(false);
-        setIsContactOpen(false);
-        showMsg("感謝您的反映，客服專員將盡快回覆！");
     };
 
     const scrollSlider = (direction) => {
