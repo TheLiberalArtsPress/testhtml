@@ -319,7 +319,7 @@ function App() {
 
     const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-    // 🛠️ 專注修復：精準封裝符合後端 CREATE_ORDER 的乾淨欄位
+    // 🛠️ 核心修復：清理多餘的中文 Key，只拋出後端精準指定填寫的標準變數
     const handleCheckout = async (e) => {
         e.preventDefault();
         if (isCheckingOut) return;
@@ -375,7 +375,7 @@ function App() {
         setIsCheckingOut(false);
     };
 
-    // 🛠️ 專注修復：配合後端 NEW_CS_MSG 進行最安全乾淨的傳送
+    // 🛠️ 核心修復：客訴欄位規範化打包，完美支援後端 Regex
     const handleCSSubmit = async (e) => {
         e.preventDefault();
         if (isSubmittingCS) return;
@@ -531,7 +531,7 @@ function App() {
                         })}
                         {carousels.length > 1 && (
                             <>
-                                <button type="button" onClick={() => setCarouselIndex((prev) => (prev - 1 + carousels.length) % carousels.length)} className="absolute left-6 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-[var(--dark-color)]/80 text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 border border-white/20"><ChevronLeft size={24}/></button>
+                                <button type="button" onClick={() => setCarouselIndex((prev) => (prev + 1) % carousels.length)} className="absolute left-6 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-[var(--dark-color)]/80 text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 border border-white/20"><ChevronLeft size={24}/></button>
                                 <button type="button" onClick={() => setCarouselIndex((prev) => (prev + 1) % carousels.length)} className="absolute right-6 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-[var(--dark-color)]/80 text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 border border-white/20"><ChevronRight size={24}/></button>
                                 <div className="absolute bottom-6 right-8 z-30 flex gap-3">
                                     {carousels.map((_, idx) => (
@@ -1012,7 +1012,7 @@ function App() {
                                         <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-xs text-[var(--text-dark)] leading-relaxed animate-in">
                                             <p className="font-bold text-emerald-800 mb-1 flex items-center gap-1">🏪 門市取貨地點：</p>
                                             <p>台北市中正區羅斯福路一段72巷4號（文史哲門市）</p>
-                                            <p className="text-gray-500 mt-1.5">※ 書籍備妥後，客服專員將致電與您確認前來取書時間，屆時現場現金付款取書即可。</p>
+                                            <p className="text-gray-500 mt-1.5">※ 書籍備妥後，客服專員將致電与您確認前來取書時間，屆時現場現金付款取書即可。</p>
                                         </div>
                                     )}
 
