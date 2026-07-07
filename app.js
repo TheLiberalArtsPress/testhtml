@@ -40,9 +40,12 @@ const ModernLogo = ({ className = "w-8 h-8", color1 = "var(--dark-color)", color
     </svg>
 );
 
-const _0x4a21 = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SnVuOVZ2c0phZWV2RXJ0dHJFR0xnTENEQTVTZ2xfNWE2WWNZTWktaDVuaEJxS0UxckwxX2d4bTJYT0lRMXpsVVl0dy9leGVj";
+
+const _0x4a21 = "YUhSMGNEb3ZMM05qY21sd0RDNW5iMjlzYkdVdVkyOXRMMTExWVd4ekwzbHpaV055YVhSMFlXSnlaWE56TDNNeExrRmxZMm55Ym5SdGN6WlNZbWwyWld4bGNteEZSMmxOYTFOV2JHUXRaWGg1Y2tsUlltVnlhbVpsYTA0d2RtNUpaM056Ylhvd1NrbERZVFZRYm1scU5reGhibTlyWkhCdU0yNXpYMkY0YzNsclltWmxNREV3TURFME9DMWRYVzU2TTA5Tk1teG9jbTloTXpWNU1XMTJaMHBvZFdkcVEzTjRVbTVoYlhkbFpHeHBXVkY2TW1scExYVTNXV0pYZFdkeGZtVjRaV009";
+
 const GAS_URL = atob(_0x4a21); 
 const SECRET_KEY = "cd6ca599bdbb083d34a3012b84071c848cc4bca0698a53c3cc65a2c296dd3ddf";
+
 
 async function generateSignature(message, secret) {
     const encoder = new TextEncoder();
